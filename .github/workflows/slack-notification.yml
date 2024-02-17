@@ -9,25 +9,21 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Fetch commit information
         id: commits
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const commits = await github.repos.listCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              per_page: 3 // Adjust as needed
-            });
-            console.log(JSON.stringify(commits.data));
-            return commits.data;
+        run: |
+          commits=$(git log --format="%h - %an: %s" -n 3)
+          echo "::set-output name=commits::$commits"
 
       - name: Send Slack notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           # Parse commit information
-          commits=$(echo "${{ steps.commits.outputs.result }}" | jq -r '.[].commit.message')
+          commits="${{ steps.commits.outputs.commits }}"
           
           # Format Slack message
           message="New commits pushed to main branch:\n\n"
