@@ -1,0 +1,31 @@
+name: React CI
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+    
+    steps:
+      - uses: actions/checkout@v1
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+      - run: npm run build
+      - name: Sync to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: dev-gaportal.gauniv.com
+          AWS_ACCESS_KEY_ID: AKIA3J6XHMA2UAP7EPQQ
+          AWS_SECRET_ACCESS_KEY: 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
+          AWS_REGION: 'ap-southeast-1'
+          SOURCE_DIR: 'build'
