@@ -34,13 +34,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-southeast-1'
           SOURCE_DIR: 'build'
+      - name: Determine Build Status
+        id: check_build_status
+        run: echo "::set-output name=build_status::${{ job.status }}"
       - name: Send Slack Notification
         if: always() # Always run this step, regardless of previous step's result
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           status="succeeded"
-          if [ ${{ failure() }} ]; then
+          if [ "${{ steps.check_build_status.outputs.build_status }}" != "success" ]; then
             status="failed"
           fi
           curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Workflow *-dev-fe-gaportal build* has $status.\"}" $SLACK_WEBHOOK_URL
