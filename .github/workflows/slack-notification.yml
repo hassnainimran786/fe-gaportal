@@ -25,20 +25,17 @@ jobs:
           # Parse commit information
           commits="${{ steps.commits.outputs.commits }}"
           message="New commits pushed to main branch:\n\n"
+
+          # Filter out changes in the src directory
+          changes=$(git diff --name-only HEAD^ HEAD | grep "^src/")
           
-          # Loop through each commit to get diff
-          while IFS= read -r commit; do
-              # Get commit hash and author
-              commit_hash=$(echo "$commit" | awk '{print $1}')
-              author=$(echo "$commit" | cut -d' ' -f3-)
-              
-              # Get commit diff
-              diff=$(git show --stat --pretty="format:" $commit_hash)
-              
-              # Format Slack message
-              message+="*Commit $commit_hash by $author:*\n"
-              message+="$diff\n\n"
-          done <<< "$commits"
+          # Loop through each changed file
+          while IFS= read -r file; do
+              # Get the diff of the file
+              diff=$(git show --stat --pretty="format:" HEAD~1..HEAD $file)
+              # Append the file name and diff to the message
+              message+="*Changes in $file:*\n$diff\n\n"
+          done <<< "$changes"
           
           # Send message to Slack
           curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$message\"}" $SLACK_WEBHOOK_URL
