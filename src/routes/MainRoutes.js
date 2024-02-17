@@ -54,7 +54,7 @@ const PackageRoutes = {
     },
     {
       path: getRouteConsts(routeConsts.package.children.editPackage),
-      element:<CreatePackage />
+      element: <CreatePackage />
     },
     {
       path: getRouteConsts(routeConsts.package.children.packagesList),
