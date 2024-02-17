@@ -9,8 +9,31 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Fetch commit information
+        id: commits
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const commits = await github.repos.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 3 // Adjust as needed
+            });
+            console.log(JSON.stringify(commits.data));
+            return commits.data;
+
       - name: Send Slack notification
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"New commit pushed to main branch!"}' $SLACK_WEBHOOK_URL
+          # Parse commit information
+          commits=$(echo "${{ steps.commits.outputs.result }}" | jq -r '.[].commit.message')
+          
+          # Format Slack message
+          message="New commits pushed to main branch:\n\n"
+          while IFS= read -r line; do
+              message+="• $line\n"
+          done <<< "$commits"
+          
+          # Send message to Slack
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$message\"}" $SLACK_WEBHOOK_URL
