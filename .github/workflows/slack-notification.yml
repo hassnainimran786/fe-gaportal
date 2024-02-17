@@ -24,11 +24,20 @@ jobs:
         run: |
           # Parse commit information
           commits="${{ steps.commits.outputs.commits }}"
-          
-          # Format Slack message
           message="New commits pushed to main branch:\n\n"
-          while IFS= read -r line; do
-              message+="• $line\n"
+          
+          # Loop through each commit to get diff
+          while IFS= read -r commit; do
+              # Get commit hash and author
+              commit_hash=$(echo "$commit" | awk '{print $1}')
+              author=$(echo "$commit" | cut -d' ' -f3-)
+              
+              # Get commit diff
+              diff=$(git show --stat --pretty="format:" $commit_hash)
+              
+              # Format Slack message
+              message+="*Commit $commit_hash by $author:*\n"
+              message+="$diff\n\n"
           done <<< "$commits"
           
           # Send message to Slack
