@@ -27,12 +27,12 @@ jobs:
           message="New commits pushed to main branch:\n\n"
 
           # Filter out changes in the src directory
-          changes=$(git diff --name-only HEAD^ HEAD | grep "^src/")
+          changes=$(git diff --name-only HEAD~1 HEAD | grep "^src/")
           
           # Loop through each changed file
           while IFS= read -r file; do
               # Get the diff of the file
-              diff=$(git show --stat --pretty="format:" HEAD~1..HEAD $file)
+              diff=$(git show --stat --pretty="format:" HEAD~1..HEAD -- "$file")
               # Append the file name and diff to the message
               message+="*Changes in $file:*\n$diff\n\n"
           done <<< "$changes"
