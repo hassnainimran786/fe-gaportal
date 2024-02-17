@@ -1,4 +1,4 @@
-name: React CI
+name: fe-gaportal
 
 on:
   push:
