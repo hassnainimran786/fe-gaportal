@@ -19,7 +19,7 @@ echo "➡️ Making $commits_today commits today..." >> log.txt
 for ((i=1; i<=commits_today; i++)); do
     echo "Commit $i at $(date)" >> commit_log.txt
     git add commit_log.txt
-    if git commit -m "Auto commit $i on $(date '+%Y-%m-%d')"; then
+    if git commit -m "commit $i on $(date '+%Y-%m-%d')"; then
         echo "✅ Commit $i successful" >> log.txt
     else
         echo "❌ Commit $i failed" >> log.txt
