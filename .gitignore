@@ -25,7 +25,3 @@ yarn-error.log*
 /.idea/
 auto.sh
 log.txt
-commit_log.txt
-
-auto.sh
-log.txt
