@@ -1,50 +1,17 @@
-fatal: not in a git directory
-fatal: not in a git directory
-➡️ Making 12 commits today...
-[main 0dd5847] commit 1 on 2025-05-05
- 1 file changed, 1 insertion(+)
+======== Script started at Sun May 18 04:30:40 PKT 2025 ========
+➡️ Making 11 commits today...
 ✅ Commit 1 successful
-[main 01c1f61] commit 2 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 2 successful
-[main 46815da] commit 3 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 3 successful
-[main bbf8429] commit 4 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 4 successful
-[main 5bbbad5] commit 5 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 5 successful
-[main 6846226] commit 6 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 6 successful
-[main 1053687] commit 7 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 7 successful
-[main 2b7b98e] commit 8 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 8 successful
-[main d651a36] commit 9 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 9 successful
-[main e2be766] commit 10 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 10 successful
-[main a545bcf] commit 11 on 2025-05-05
- 1 file changed, 1 insertion(+)
 ✅ Commit 11 successful
-[main 4bca0d7] commit 12 on 2025-05-05
- 1 file changed, 1 insertion(+)
-✅ Commit 12 successful
-To github.com:hassnainimran786/fe-gaportal.git
- ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'github.com:hassnainimran786/fe-gaportal.git'
-hint: Updates were rejected because the remote contains work that you do
-hint: not have locally. This is usually caused by another repository pushing
-hint: to the same ref. You may want to first integrate the remote changes
-hint: (e.g., 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+❌ Pull (rebase) failed
 ❌ Push failed
-======== Script finished at Mon May  5 23:00:50 PKT 2025 ========
+======== Script finished at Sun May 18 05:14:57 PKT 2025 ========
 
