@@ -23,3 +23,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /.idea/
+auto.sh
+log.txt
+commit_log.txt
+
+auto.sh
+commit_log.txt
+log.txt
